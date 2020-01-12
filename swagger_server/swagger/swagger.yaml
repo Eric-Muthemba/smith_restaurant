@@ -1,0 +1,369 @@
+openapi: 3.0.0
+info:
+  title: The Smith restaurant website Apis
+  description: Api that support the restaurant management system
+  termsOfService: http://the_smith/terms/
+  contact:
+    email: neliuswathigo@gmail.com
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: Onboarding APIs
+  description: support singup & sign in of different entities with different privileges
+- name: Crud APIs
+  description: Support ordering and restaurent management
+paths:
+  /get_order/{customer_id}:
+    get:
+      tags:
+      - Crud APIs
+      summary: Get all orders
+      operationId: api_get_orders
+      parameters:
+      - name: customer_id
+        in: path
+        description: User unique identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: gfddf3434dd
+      responses:
+        "200":
+          description: JWT token
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /order:
+    post:
+      tags:
+      - Crud APIs
+      summary: make an order
+      operationId: api_order
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/order'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /add_to_basket:
+    post:
+      tags:
+      - Crud APIs
+      summary: make an order
+      operationId: api_add_to_basket
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/add_to_basket'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /signup:
+    post:
+      tags:
+      - Onboarding APIs
+      summary: signs up new entities
+      operationId: api_signup
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signup'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.onboarding_ap_is_controller
+  /signin:
+    post:
+      tags:
+      - Onboarding APIs
+      summary: signs in a registered entity
+      operationId: onboarding_signin
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signin'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.onboarding_ap_is_controller
+  /add_item:
+    post:
+      tags:
+      - Crud APIs
+      summary: adds new menu items to the menu
+      operationId: api_add_item
+      requestBody:
+        description: adds new menu items to the menu
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/add_item'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /update_item:
+    post:
+      tags:
+      - Crud APIs
+      summary: updates menu items to the menu
+      operationId: api_update_item
+      requestBody:
+        description: updates menu items to the menu
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/update_item'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /feedback:
+    post:
+      tags:
+      - Crud APIs
+      summary: give feedback on use
+      operationId: api_feedback
+      requestBody:
+        description: give feedback on use
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/feedback'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /new_customer:
+    post:
+      tags:
+      - Crud APIs
+      summary: updates new customer info
+      operationId: api_new_customer
+      requestBody:
+        description: updates new customer info
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/new_customer'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /ask_for_help/{table_id}:
+    get:
+      tags:
+      - Crud APIs
+      summary: request help for specific table
+      operationId: api_ask_for_help
+      parameters:
+      - name: table_id
+        in: path
+        description: table unique identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: gfddf3434dd
+      responses:
+        "200":
+          description: JWT token
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /assign_task:
+    post:
+      tags:
+      - Crud APIs
+      summary: assign task to personel
+      operationId: api_assign_task
+      requestBody:
+        description: assign task to personel
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/assign_task'
+        required: true
+      responses:
+        default:
+          description: successful operation
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /confirm_order/{work_id}:
+    get:
+      tags:
+      - Crud APIs
+      summary: chef confirms that he/she has received the order and has started working
+        on it.
+      operationId: api_confirm_order
+      parameters:
+      - name: work_id
+        in: path
+        description: chef confirms that he/she has received the order and has started
+          working on it
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: "1"
+      responses:
+        "200":
+          description: JWT token
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+  /order_ready/{work_id}:
+    get:
+      tags:
+      - Crud APIs
+      summary: chef confirms that he/she has finished the order.
+      operationId: api_order_ready
+      parameters:
+      - name: work_id
+        in: path
+        description: chef confirms that he/she has finished the order.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: "1"
+      responses:
+        "200":
+          description: JWT token
+          content:
+            text/plain:
+              schema:
+                type: string
+                x-content-type: text/plain
+      x-openapi-router-controller: swagger_server.controllers.crud_ap_is_controller
+components:
+  schemas:
+    signin:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    signup:
+      type: object
+      properties:
+        UserName:
+          type: string
+        Email:
+          type: string
+        Password:
+          type: string
+        Confirmed_Password:
+          type: string
+    add_to_basket:
+      type: object
+      properties:
+        name:
+          type: string
+        quantity:
+          type: string
+        table_number:
+          type: string
+    order:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        basket_number:
+          type: string
+        special_request:
+          type: string
+        table_number:
+          type: string
+    add_item:
+      type: object
+      properties:
+        category:
+          type: string
+        food_item_name:
+          type: string
+        quantity:
+          type: integer
+        price:
+          type: integer
+        ETA:
+          type: integer
+        description:
+          type: string
+    update_item:
+      type: object
+      properties:
+        quantity:
+          type: integer
+        price:
+          type: integer
+        ETA:
+          type: integer
+    feedback:
+      type: object
+      properties:
+        customer_name:
+          type: string
+        feedback:
+          type: string
+        rate_us:
+          type: integer
+    new_customer:
+      type: object
+      properties:
+        customer_name:
+          type: string
+        table_number:
+          type: string
+        email:
+          type: string
+    assign_task:
+      type: object
+      properties:
+        server_name:
+          type: string
+        chef_name:
+          type: string
+        order_number:
+          type: integer
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: swagger_server.controllers.authorization_controller.check_jwt
+
